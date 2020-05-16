@@ -1,0 +1,10 @@
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
+root = true
+
+# YML and YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.json]
+indent_size = 2
