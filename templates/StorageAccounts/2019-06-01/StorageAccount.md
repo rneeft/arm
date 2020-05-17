@@ -15,7 +15,7 @@ Add the following code section into the ARM template:
             "contentVersion": "1.0.0.0"
         },
         "parameters": {
-            "storageAccountName": {
+            "stage": {
                 "value": "[parameters('stage')]"
             },
             "product": {
