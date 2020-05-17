@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "stage": {
+        "type": "string",
+        "allowedValues": [
+          "POC",
+          "DEV",
+          "TST",
+          "PRD"
+        ],
+        "metadata": {
+          "description": "Stage of the deployment, like DEV TST or PRD"
+        }
+      },
+      "product": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().location]"
+      },
+      "locationSmall": {
+        "type": "string",
+        "defaultValue": "WE",
+        "metadata": {
+          "description": "Smaller representation of the location for example: WE for WestEurope"
+        }
+      },
+      "applicationType": {
+          "type": "string",
+          "defaultValue": "web"
+      }
+    },
+    "variables": {
+      "applicationInsightsName": "[concat('CHR-', parameters('product'),'-AI-', parameters('stage'), '-', parameters('locationSmall'))]"
+    },
+    "resources": [
+      {
+        "tags": {
+          "displayName": "Application Insights",
+          "product": "[parameters('product')]",
+          "stage": "[parameters('stage')]"
+        },
+        "name": "[variables('applicationInsightsName')]",
+        "type": "microsoft.insights/components",
+        "apiVersion": "2015-05-01",
+        "location": "[parameters('location')]",
+        "kind": "[parameters('applicationType')]",
+        "properties":{
+          "Application_Type": "[parameters('applicationType')]"
+        }
+      }
+
+    ],
+    "outputs": {
+      "applicationInsightsInstrumentationKey": {
+        "type": "string",
+        "value": "[reference(resourceId('Microsoft.Insights/components', variables('applicationInsightsName')), '2015-05-01').InstrumentationKey]"
+      },
+      "applicationInsightsName": {
+          "type": "string",
+          "value": "[variables('applicationInsightsName')]"
+      }
+    }
+  }
