@@ -24,7 +24,6 @@
       "locationSmall": {
         "type": "string",
         "defaultValue": "WE",
-
         "metadata": {
           "description": "Smaller representation of the location for example: WE for WestEurope"
         }
@@ -70,7 +69,7 @@
       }
     },
     "variables": {
-      "storageAccountName": "[concat('chr', toLower(parameters('product')) ,'sa', toLower(parameters('stage')), toLower(parameters('locationSmall')))]",
+      "storageAccountName": "[concat('chr', toLower(parameters('product')) ,'sa', toLower(parameters('stage')), toLower(parameters('locationSmall')))]"
     },
     "resources": [
   
